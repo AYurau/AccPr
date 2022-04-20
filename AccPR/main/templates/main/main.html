@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Добро пожаловать</title>
+    <link rel = 'stylesheet' href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">AccProducts | Главная</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/main.html">Продажа</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/remains.html">Остатки</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/add.html">Внести приход</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="/reports.html">Отчёты</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<center>
+    <form id="code-form">
+        {% csrf_token %}
+        <input id="code" type="text" name="code" class="form-control" placeholder="Штрихкод" >
+        <table id="producttable">
+          <thead>
+            <tr>
+              <td>Код продукта</td>
+              <td>Наименование</td>
+              <td>Цена</td>
+              <td>Колличество</td>
+            </tr>
+          </thead>
+          <tbody id="producttbody">
+            <!-- данные будут вставлены сюда -->
+          </tbody>
+        </table>
+        <h3>Способы оплаты:</h3>
+
+        <label for="paymentTypecCash">
+            Наличные:
+            <input id="paymentTypecCash" type="radio" name="paymentType" value="cash" required>
+        </label>
+
+        <label for="paymentTypecCard">
+            Карта:
+            <input id="paymentTypecCard" type="radio" name="paymentType" value="card" required>
+        </label>
+        <button type="submit">Провести</button>
+    </form>
+</center>
+
+
+
+</body>
+{% block add_script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src={% static "script.js" %}></script>
+<script src={% static "jquery.tmp.min.js" %}></script>
+<script src={% static "jquery.form.object.js" %}></script>
+{% endblock %}
+
+
+<script id="productrow" type="text/x-jquery-tmpl">
+  <tr>
+    <td>${code}</td>
+    <td>${name}</td>
+    <td>${price}</td>
+    <td>${amount}</td>
+  </tr>
+</script>
+
+<script id="productstotal" type="text/x-jquery-tmpl">
+  <tr>
+    <td>Итого:</td>
+    <td></td>
+    <td></td>
+    <td>${total}</td>
+  </tr>
+</script>
+
+</html>
